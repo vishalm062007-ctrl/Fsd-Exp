@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f0f2f5;
+  color: #1c1e21;
+  min-height: 100vh;
+}
+
+.event-manager {
+  padding: 3rem 1rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: #1877f2;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  color: #65676b;
+  font-size: 1.1rem;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #1c1e21;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #dddfe2;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #1877f2;
+  box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+}
+
+.btn-add {
+  width: 100%;
+  padding: 1rem;
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-add:hover {
+  background-color: #166fe5;
+}
+
+.event-list {
+  list-style: none;
+}
+
+.event-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  transition: transform 0.2s;
+}
+
+.event-item:hover {
+  transform: translateY(-2px);
+}
+
+.event-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #1c1e21;
+}
+
+.details {
+  display: flex;
+  gap: 1.5rem;
+  color: #65676b;
+  font-size: 0.9rem;
+}
+
+.btn-delete {
+  padding: 0.5rem 1rem;
+  background-color: #fce8e8;
+  color: #e41e3f;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-delete:hover {
+  background-color: #f7dada;
+  color: #c91a37;
+}
+
+.empty-msg {
+  text-align: center;
+  color: #8a8d91;
+  font-style: italic;
+  margin-top: 2rem;
+}
+
+@media (max-width: 600px) {
+  .event-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  
+  .btn-delete {
+    width: 100%;
+  }
+  
+  .details {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

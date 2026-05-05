@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Voting System</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 20px;
+        }
+
+        #maincont {
+            background-color: #ffffff;
+            padding: 12px;
+            border: 1px solid #cccccc;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-top: 8px;
+            margin-bottom: 4px;
+        }
+
+        #maincont>label:first-child {
+            font-size: 18px;
+            text-align: left;
+            color: #000;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 1px solid #888;
+        }
+
+        button {
+            padding: 8px 10px;
+            border: 1px solid #666;
+            background: #f4f4f4;
+            color: #000;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #e9e9e9;
+        }
+
+        #submitBtn {
+            border-color: #4CAF50;
+            color: #4CAF50;
+            background: #fff;
+        }
+
+        #submitBtn:hover {
+            background: #4CAF50;
+            color: #fff;
+        }
+
+        #voteSection,
+        #moreDetails {
+            margin-top: 12px;
+            display: none;
+        }
+
+        .two-col {
+            display: block;
+        }
+
+        .small {
+            font-size: 12px;
+            color: #444;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <div id="maincont">
+            <label>Voting System</label>
+
+            <label>Enter your Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" />
+
+            <label>Enter your Aadhaar Number:</label>
+            <input type="text" id="aadhaar" placeholder="Enter 12-digit Aadhaar" maxlength="12"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+
+            <label>Enter your Date of Birth:</label>
+            <input type="date" id="dob" />
+
+            <button type="button" id="verifyBtn" onclick="func1()">Verify</button>
+
+            <div id="moreDetails">
+                <label>Enter your Phone Number:</label>
+                <input type="text" id="phone" value="+91 " maxlength="14"
+                    oninput="if(!this.value.startsWith('+91 ')) this.value='+91 '; this.value = '+91 ' + this.value.substring(4).replace(/[^0-9]/g, '')" />
+
+                <label>Enter your Email (optional):</label>
+                <input type="email" id="email" placeholder="example@domain.com" />
+
+                <div class="two-col">
+                    <div>
+                        <label>Gender</label>
+                        <select id="gender">
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Pincode</label>
+                        <input type="text" id="pincode" maxlength="6"
+                            oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+                    </div>
+                </div>
+
+                <label>Enter Father's/Spouse Name (optional):</label>
+                <input type="text" id="parentName" placeholder="Father's or Spouse's name" />
+
+                <label>Enter Address (optional):</label>
+                <input type="text" id="address" placeholder="House no, Street, Locality" />
+
+                <button type="button" id="continueBtn" onclick="funcContinue()">Continue to Vote</button>
+            </div>
+
+            <div id="voteSection">
+                <label>Enter your Voter's ID</label>
+                <input type="text" id="vid" placeholder="Enter 10-char Voter ID" maxlength="10"
+                    oninput="this.value = this.value.toUpperCase()" />
+
+                <label>Select your Prefered Party:</label>
+                <select id="partySelect">
+                    <option value="Select">Select Party</option>
+                    <option value="A">Party A</option>
+                    <option value="B">Party B</option>
+                    <option value="C">Party C</option>
+                </select>
+                <button type="button" id="submitBtn" onclick="func2()">Submit Vote</button>
+            </div>
+        </div>
+    </form>
+    <script>
+        function validateEmail(email) {
+            var re = /^\S+@\S+\.\S+$/;
+            return re.test(email);
+        }
+
+        function func1() {
+            var name = document.getElementById("name").value.trim();
+            if (!name) { alert("Please enter your name"); return; }
+
+            var aadhaar = document.getElementById("aadhaar").value;
+            var aadhaarRegex = /^\d{12}$/;
+            if (!aadhaarRegex.test(aadhaar)) {
+                alert("Invalid Aadhaar Number. Please enter exactly 12 digits.");
+                return;
+            }
+
+            var dobInput = document.getElementById("dob").value;
+            if (!dobInput) { alert("Please enter Date of Birth"); return; }
+            var dob = new Date(dobInput);
+            var today = new Date();
+            var age = today.getFullYear() - dob.getFullYear();
+            var m = today.getMonth() - dob.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) { age--; }
+
+            if (age < 18) { alert("Not Eligible. Age: " + age); return; }
+
+            alert("Basic verification successful. Please provide additional details to continue.");
+            document.getElementById("moreDetails").style.display = "block";
+            document.getElementById("verifyBtn").style.display = "none";
+        }
+
+        function funcContinue() {
+            var phone = document.getElementById("phone").value;
+            var phoneRegex = /^\+91 [6-9]\d{9}$/;
+            if (!phoneRegex.test(phone)) {
+                alert("Invalid Phone Number. Use '+91 XXXXXXXXXX' and first digit must be 6-9.");
+                return;
+            }
+
+            var email = document.getElementById("email").value.trim();
+            if (email && !validateEmail(email)) {
+                alert("Invalid email address.");
+                return;
+            }
+
+            var pincode = document.getElementById("pincode").value;
+            if (pincode && pincode.length !== 6) { alert("Invalid Pincode. Must be 6 digits."); return; }
+
+            document.getElementById("voteSection").style.display = "block";
+            document.getElementById("moreDetails").style.display = "none";
+            alert("Details saved. You can now cast your vote.");
+        }
+
+        function func2() {
+            var vid = document.getElementById("vid").value.trim();
+            if (vid && vid.length !== 10) { alert("Invalid Voter ID. It must be exactly 10 characters long if provided."); return; }
+
+            var select = document.getElementById("partySelect");
+            if (select.value === "Select") { alert("Please select a party first!"); return; }
+
+            alert("Vote Submitted successfully for " + select.value);
+            document.forms[0].submit();
+        }
+    </script>
+</body>
+
+</html>
+
+</html>

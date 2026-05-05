@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fce4ec;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        h1 {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .section-title {
+            color: #444;
+            margin: 0 0 1rem 0;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            color: #333;
+            min-height: 60px;
+            user-select: none;
+        }
+
+        .product-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .product-card:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:active {
+            transform: translateY(0);
+        }
+
+        .cart-section {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-left: 1px solid #eee;
+            padding-left: 2rem;
+        }
+
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 10px;
+            align-items: center;
+        }
+
+        .cart-item-price {
+            font-size: 0.9rem;
+            color: #666;
+            margin-right: 5px;
+            font-weight: 500;
+        }
+
+        .cart-item-name {
+            font-weight: 500;
+        }
+
+        .cart-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn {
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .btn:hover {
+            background-color: #d0d0d0;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #333;
+            text-align: right;
+            padding-top: 10px;
+            border-top: 2px solid #eee;
+        }
+
+        .buy-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .buy-btn:hover {
+            background-color: #45a049;
+        }
+
+        .buy-btn:active {
+            transform: translateY(1px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .cart-section {
+                border-left: none;
+                border-top: 1px solid #eee;
+                padding-left: 0;
+                padding-top: 2rem;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Fruit Shopping Cart</h1>
+
+        <div class="products-section">
+            <h2 class="section-title">Products</h2>
+            <div class="product-grid" id="product-grid">
+                <!-- Products will be generated by JS -->
+            </div>
+        </div>
+
+        <div class="cart-section">
+            <h2 class="section-title">Cart Items</h2>
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be generated by JS -->
+            </div>
+
+            <div class="total" id="total-price">
+                Total: ₹0
+            </div>
+            <button class="buy-btn" onclick="buy()">Buy Now</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

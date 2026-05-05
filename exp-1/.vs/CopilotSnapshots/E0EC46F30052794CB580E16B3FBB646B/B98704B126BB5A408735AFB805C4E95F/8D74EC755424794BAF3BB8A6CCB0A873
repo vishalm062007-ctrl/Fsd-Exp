@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Voting System</title>
+    <style>
+        body{font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+        #maincont{background:#fff;padding:30px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.1);width:350px;display:flex;flex-direction:column}
+        label{color:#333;font-weight:600;margin:10px 0 5px}
+        #maincont>label:first-child{font-size:24px;text-align:center;color:#2c3e50;margin:0 0 20px}
+        input[type=text],input[type=date],select{width:100%;padding:10px;margin-bottom:5px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box}
+        input:focus,select:focus{outline:none;border-color:#007bff}
+        button{width:100%;padding:12px;background:#007bff;color:#fff;border:none;border-radius:5px;font-size:16px;cursor:pointer;margin-top:15px}
+        button#submitBtn{background:#28a745}
+        #voteSection{border-top:1px solid #eee;margin-top:20px;padding-top:10px;display:none}
+    </style>
+</head>
+<body>
+<form id="voterForm">
+    <div id="maincont">
+        <label>Voting System</label>
+
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="Enter your name" />
+
+        <label>Phone Number</label>
+        <input type="text" id="phone" value="+91 " maxlength="14" oninput="if(!this.value.startsWith('+91 ')) this.value='+91 '; this.value = '+91 ' + this.value.substring(4).replace(/[^0-9]/g, '')" />
+
+        <label>Aadhaar Number</label>
+        <input type="text" id="aadhaar" placeholder="Enter 12-digit Aadhaar" maxlength="12" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+
+        <label>Date of Birth</label>
+        <input type="date" id="dob" />
+
+        <button type="button" id="verifyBtn" onclick="verify()">Verify</button>
+
+        <div id="voteSection">
+            <label>Voter ID (EPIC)</label>
+            <input type="text" id="vid" placeholder="Enter 10-char Voter ID" maxlength="10" oninput="this.value=this.value.toUpperCase()" />
+
+            <label>Select Party</label>
+            <select id="partySelect">
+                <option value="Select">Select Party</option>
+                <option value="A">Party A</option>
+                <option value="B">Party B</option>
+                <option value="C">Party C</option>
+            </select>
+
+            <button type="button" id="submitBtn" onclick="submitVote()">Submit Vote</button>
+        </div>
+    </div>
+</form>
+<script>
+function verify(){
+    var name=document.getElementById('name').value.trim();
+    if(!name){alert('Please enter your name');return}
+    var aad=document.getElementById('aadhaar').value;
+    if(!/^\d{12}$/.test(aad)){alert('Invalid Aadhaar. Enter exactly 12 digits.');return}
+    var phone=document.getElementById('phone').value;
+    if(!/^\+91 [6-9]\d{9}$/.test(phone)){alert("Invalid Phone. Use '+91 XXXXXXXXXX' and first digit 6-9.");return}
+    var dobInput=document.getElementById('dob').value;if(!dobInput){alert('Enter Date of Birth');return}
+    var dob=new Date(dobInput),today=new Date(),age=today.getFullYear()-dob.getFullYear();var m=today.getMonth()-dob.getMonth();if(m<0||(m===0&&today.getDate()<dob.getDate()))age--;
+    if(age<18){alert('Not eligible. Age: '+age);return}
+    document.getElementById('voteSection').style.display='block';document.getElementById('verifyBtn').style.display='none';alert('Verification successful. Age: '+age)
+}
+function submitVote(){
+    var vid=document.getElementById('vid').value.trim();
+    if(vid&&vid.length!==10){alert('Invalid Voter ID. Must be 10 characters if provided.');return}
+    var party=document.getElementById('partySelect').value;if(party==='Select'){alert('Please select a party');return}
+    alert('Vote submitted for '+party);
+    document.getElementById('voterForm').reset();document.getElementById('voteSection').style.display='none';document.getElementById('verifyBtn').style.display='block'
+}
+</script>
+</body>
+</html>
